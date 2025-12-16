@@ -134,7 +134,7 @@ REMINDER_TIME=09:00
 
 Új Web Service létrehozása
 
-GitHub repository kiválasztása
+GitHub repository: https://github.com/laszlokmobile-design/Multi_paradigmas_programozasi_nyelvek/
 
 Start command:
 
