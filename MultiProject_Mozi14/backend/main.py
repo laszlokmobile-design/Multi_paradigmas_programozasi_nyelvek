@@ -48,6 +48,10 @@ def on_startup():
         #threading.Thread(target=run_scheduler, daemon=True).start()
 
 
+@app.get("/")
+async def root():
+    return {"message": "Mozi API fut!"}
+
 
 
 
