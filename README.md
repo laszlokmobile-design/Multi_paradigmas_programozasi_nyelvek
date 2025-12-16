@@ -153,7 +153,7 @@ Repository + file: frontend/app.py
 
 Environment → Secret variables → ugyanazok a .env értékeid
 
-Deploy LINK: https://multiparadigmasprogramozasinyelvek-wnsstvzhvdn9gzytysqjul.streamlit.app/
+Deploy LINK: [https://multiparadigmasprogramozasinyelvek-wnsstvzhvdn9gzytysqjul.streamlit.app/](https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/)
 
 📊 Vizualizáció (Altair + Pandas)
 
