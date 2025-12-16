@@ -9,7 +9,7 @@ import streamlit as st
 ✔ elrejti a backend URL-t és a networking részleteket
 ✔ egyszerű, használható függvényeket biztosít a frontend logikájának
 """
-API_BASE = st.secrets.get("API_BASE", "http://localhost:8000")#API címe
+API_BASE = st.secrets["API_BASE"]#API címe
 
 BASE_URL = "https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.onrender.com"
 
@@ -32,3 +32,4 @@ def get_movies():
 def add_movie(payload: dict):
 
     return requests.post(f"{API_BASE}/movies/", json=payload, headers=_headers())
+
