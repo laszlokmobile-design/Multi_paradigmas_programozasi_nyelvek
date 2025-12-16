@@ -15,43 +15,43 @@ A beadandó célja:
 
 # 🚀 Funkciók
 
-### ✔ FastAPI REST backend  
+### FastAPI REST backend  
 - Filmek listázása, hozzáadása, törlése  
 - Felhasználók kezelése  
 - Token alapú autentikáció  
 - Automatikus napi figyelmeztetések  
 
-### ✔ Streamlit frontend  
+### Streamlit frontend  
 - Filmek megjelenítése  
 - Új film hozzáadása  
 - Statisztikai vizualizáció (diagram)  
 - Backend API hívások  
 
-### ✔ Adatbázis – SQLAlchemy ORM  
+### Adatbázis – SQLAlchemy ORM  
 - SQLite alapú adatmodell  
 - Movies és Users táblák  
 
-### ✔ Automatizált háttérfolyamat  
+### Automatizált háttérfolyamat  
 - Napi egyszeri ütemezett email küldés arról hogy az előző nap töltöttek e fel filmet az adatbázisba  
 - schedule modul  
 - SMTP alapú levelezés  
 
-### ✔ Tesztelés – pytest  
+### Tesztelés – pytest  
 - 3 db teszt  
 - 1 parametrize-os teszt  
 - HTTPX teszt kliens FastAPI-hoz  
 
-### ✔ Deploy támogatás  
+### Deploy támogatás  
 - FastAPI → Render  
 - Streamlit → Streamlit Cloud  
 - Környezeti változók `.env` fájlban  
 
-### ✔Hibakezelés:
+### Hibakezelés:
 - A backend minden API végpontja try/except blokkokkal van védve, így az esetleges hibák nem omlasztják össze az 
 - alkalmazást. Kezeljük az adatbázis műveletek, e-mail küldés és API hívások során fellépő hibákat. A hibák a logba 
 - kerülnek, és szükség esetén a felhasználónak is jelezhetők.
 
-### ✔Logolás:
+### Logolás:
 - A projekt a Python logging modulját használja.
 
 - INFO: normál működési üzenetek (pl. film hozzáadása, sikeres API hívás)
