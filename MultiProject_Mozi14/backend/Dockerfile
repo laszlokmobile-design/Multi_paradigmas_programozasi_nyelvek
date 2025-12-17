@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y build-essential
 WORKDIR /app
 
 
+
 # Copy everything from the current directory (backend)
 #COPY . .
 COPY . /app
