@@ -8,6 +8,9 @@ import urllib.parse
 
 menu = None
 
+BACKEND_URL = "https://mozi-backend-21wo.onrender.com"
+r = requests.get(f"{BACKEND_URL}/movies/")
+
 # Felhasználótól bekérjük az emailt
 #email = st.text_input("Email címed")
 st.set_page_config(page_title="Mozi – Filmajánló", layout="wide")
