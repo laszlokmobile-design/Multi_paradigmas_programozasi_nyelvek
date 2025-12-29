@@ -8,9 +8,6 @@ import urllib.parse
 
 menu = None
 
-BACKEND_URL = "https://mozi-backend-21wo.onrender.com"
-r = requests.get(f"{BACKEND_URL}/movies/")
-
 # Felhasználótól bekérjük az emailt
 #email = st.text_input("Email címed")
 st.set_page_config(page_title="Mozi – Filmajánló", layout="wide")
@@ -32,6 +29,17 @@ def api_headers():
     if st.session_state.token:
         return {"Authorization": f"Bearer {st.session_state.token}"}
     return {}
+
+# Backend elérhetőség ellenőrzése
+def check_backend():
+    try:
+        r = requests.get(f"{API_BASE}/movies/", headers=api_headers(), timeout=5)
+        r.raise_for_status()
+        return True
+    except requests.exceptions.RequestException as e:
+        st.error(f"Nem lehet elérni a backend szolgáltatást: {e}")
+        return False
+
 
 st.markdown("<h1 style='font-size:50px;'>🎬 Mozi – Filmajánló rendszer</h1>", unsafe_allow_html=True)
 st.markdown("<p style='font-size:24px;'>Üdv a filmajánló alkalmazásban!</p>", unsafe_allow_html=True)
@@ -183,8 +191,11 @@ elif menu == "Filmek":
 
     try:
         r = requests.get(f"{API_BASE}/movies/", headers=api_headers(), timeout=10)
+        r.raise_for_status()
+        items = r.json()
     except Exception as e:
         st.error(f"Hálózati hiba: {e}")
+        items = []
     else:
         if r.status_code == 200:
             items = r.json()
