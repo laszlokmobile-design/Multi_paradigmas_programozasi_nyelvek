@@ -288,17 +288,16 @@ elif menu == "Statisztika":
     st.write("## Statisztika")
     try:
         r = requests.get(f"{API_BASE}/movies/stats/", headers=api_headers(), timeout=10)
+        r.raise_for_status()
+        stats = r.json()
     except Exception as e:
         st.error(f"Hálózati hiba: {e}")
+        stats = {}
     else:
-        if r.status_code == 200:
-            stats = r.json()
-            st.metric("Összes film", stats.get("count", 0))
-            mean = stats.get("mean_rating")
-            st.metric("Átlag rating", f"{mean:.2f}" if mean else "N/A")
-            st.json(stats)
-        else:
-            st.error(f"Hiba: {r.status_code} — {r.text}")
+        st.metric("Összes film", stats.get("count", 0))
+        mean = stats.get("mean_rating")
+        st.metric("Átlag rating", f"{mean:.2f}" if mean else "N/A")
+        st.json(stats)
 
 ####################
 # PROFIL / KIJELENTKEZÉS
