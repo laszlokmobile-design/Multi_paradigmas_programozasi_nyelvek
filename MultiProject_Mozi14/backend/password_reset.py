@@ -39,7 +39,7 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
     msg['From'] = "noreply@moziapp.com"
     msg['To'] = user.email
 
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:8501")  # .env-ből olvassa
+    frontend_url = os.getenv("FRONTEND_URL")  # .env-ből olvassa, nincs fallback localhost
     #msg.set_content(f"Kattints ide a jelszó visszaállításához: {frontend_url}/reset-password?token={token}")
     msg.set_content(f"Kattints ide a jelszó visszaállításához: {frontend_url}/reset_password?token={token}")
 
@@ -69,3 +69,4 @@ def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(
 
 
     return {"detail": "A jelszó sikeresen módosítva."}
+
