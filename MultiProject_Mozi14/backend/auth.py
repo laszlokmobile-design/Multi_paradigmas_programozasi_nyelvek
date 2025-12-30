@@ -6,7 +6,7 @@ from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from .database import SessionLocal
+from database import SessionLocal
 import crud
 import schemas
 from logger import logger
@@ -69,3 +69,4 @@ def get_password_hash(password: str):
     password_bytes = password.encode("utf-8")[:72]
 
     return pwd_context.hash(password_bytes)
+
