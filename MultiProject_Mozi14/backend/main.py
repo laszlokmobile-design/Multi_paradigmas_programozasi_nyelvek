@@ -18,10 +18,6 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="🎬 Mozi API")
 
 origins = [
-    "http://localhost:8501",  # Streamlit vagy más frontend
-    "http://127.0.0.1:8501",
-    "http://127.0.0.1:8000",  # Swagger UI
-    "http://localhost:8000",  # Swagger UI
     "https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/"
 ]
 app.add_middleware(
