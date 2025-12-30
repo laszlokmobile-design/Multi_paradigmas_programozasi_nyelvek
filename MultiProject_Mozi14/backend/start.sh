@@ -1,3 +1,4 @@
+#backend/start.sh
 #!/bin/sh
 # Migráció
 python backend/migrate_db.py
