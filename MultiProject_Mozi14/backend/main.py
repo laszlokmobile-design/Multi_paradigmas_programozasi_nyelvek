@@ -17,9 +17,6 @@ Base.metadata.create_all(bind=engine)
 #2️⃣ FastAPI app létrehozása
 app = FastAPI(title="🎬 Mozi API")
 
-origins = [
-    "https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/"
-]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # beadandóhoz OK
