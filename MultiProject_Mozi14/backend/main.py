@@ -2,13 +2,13 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend import models
-from backend.api import movies, auth as auth_router
-from backend.logger import logger
-from backend.background import start_scheduler_in_thread, start_email_scheduler
-from backend.database import engine, Base
-from backend.password_reset import router as password_reset_router
-from backend.tasks import run_scheduler
+import models
+from api import movies, auth as auth_router
+from logger import logger
+from background import start_scheduler_in_thread, start_email_scheduler
+from database import engine, Base
+from password_reset import router as password_reset_router
+from tasks import run_scheduler
 import threading
 # create tables
 #1️⃣ Adatbázis táblák létrehozása
