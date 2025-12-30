@@ -53,7 +53,7 @@ def post_movie(
     background_tasks.add_task(
         send_email,
         "Új film a Mozi adatbázisban!",
-        build_new_movie_email(new_movie.title, new_movie.year),
+        build_new_movie_email(new_movie.title, new_movie.year, new_movie.description),
         to_emails=user_emails
     )
 
