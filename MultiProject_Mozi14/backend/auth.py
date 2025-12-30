@@ -7,8 +7,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from .database import SessionLocal
-from . import crud, schemas
-from .logger import logger
+import crud
+import schemas
+from logger import logger
 from dotenv import load_dotenv
 from passlib.context import CryptContext
 from urllib.parse import quote_plus
@@ -66,4 +67,5 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def get_password_hash(password: str):
     # max 72 bájt
     password_bytes = password.encode("utf-8")[:72]
+
     return pwd_context.hash(password_bytes)
