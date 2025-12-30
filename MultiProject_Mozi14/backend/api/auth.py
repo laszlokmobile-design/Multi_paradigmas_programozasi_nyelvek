@@ -2,11 +2,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from ..database import SessionLocal
-from .. import crud, schemas
-from ..auth import create_access_token
+from database import SessionLocal
+import crud
+import schemas
+from auth import create_access_token
 from urllib.parse import quote_plus
-from ..email_utils import send_email
+from email_utils import send_email
 from pydantic import BaseModel
 
 class PasswordResetRequest(BaseModel):
@@ -74,5 +75,6 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
         f"Kattints ide a jelszó visszaállításhoz: {token_link}",
         user.email
     )
+
 
     return {"detail": "Password reset email sent"}
