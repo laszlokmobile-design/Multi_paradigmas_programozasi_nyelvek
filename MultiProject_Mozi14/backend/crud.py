@@ -6,8 +6,9 @@ from typing import List, Optional
 #from .models import User  # igazítsd a helyes útvonalra
 import models
 import schemas
-from auth import get_password_hash, pwd_context
+from auth import get_password_hash, pwd_context, MAX_BCRYPT_LENGTH
 from models import User
+
 # 1️⃣ Users műveletek
 # ------ Users ------
 def get_user_by_username(db: Session, username: str) -> Optional[models.User]:
