@@ -119,21 +119,26 @@ def notify_new_movie(movie: Movie):
         body = build_new_movie_email(movie.title, movie.year, movie.description)
         send_email(subject, body, emails)
     db.close()
+    
 #5️⃣ Email scheduler
 def start_email_scheduler():
     def email_loop():
-        to_emails = [email.strip() for email in os.getenv("EMAIL_TO", "").split(",")]
-        #schedule.every().day.at("00:00").do(
-        schedule.every(10).seconds.do(
-            functools.partial(
-                send_email_util,
-                subject="Előző napi filmfeltöltések",
-                body="Itt az összefoglaló a tegnapi filmekről...",
-                to_emails=to_emails
-            )
-        )
+        from models import User
+        from database import SessionLocal
         while True:
-            schedule.run_pending()
-            time.sleep(1)
-
+            db = SessionLocal()
+            try:
+                users = db.query(User).all()
+                to_emails = [u.email for u in users if u.email]
+                if to_emails:
+                    send_email_util(
+                        subject="Előző napi filmfeltöltések",
+                        body="Itt az összefoglaló a tegnapi filmekről...",
+                        to_emails=to_emails
+                    )
+            except Exception as e:
+                logger.exception("Failed to send scheduled email: %s", e)
+            finally:
+                db.close()
+            time.sleep(10)  # minden 10 mp-ként
     threading.Thread(target=email_loop, daemon=True).start()
