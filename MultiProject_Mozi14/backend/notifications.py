@@ -1,8 +1,8 @@
   #backend/notifications.py
 from sqlalchemy.orm import Session
-from .database import SessionLocal
-from .models import Movie, User
-from .email_utils import send_email
+from database import SessionLocal
+from models import Movie, User
+from email_utils import send_email
 
 def notify_new_movies():
     db: Session = SessionLocal()# Adatbázis kapcsolat létrehozása
@@ -27,4 +27,5 @@ def notify_new_movies():
         db.add(movie)
 
     db.commit()
+
     db.close()
