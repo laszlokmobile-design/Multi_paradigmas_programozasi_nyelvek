@@ -2,10 +2,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import List
-from .. import crud, schemas
-from ..database import SessionLocal
-from ..auth import get_current_user
-from ..email_utils import send_email, build_new_movie_email
+import crud 
+import schemas
+from database import SessionLocal
+from auth import get_current_user
+from email_utils import send_email, build_new_movie_email
 
 router = APIRouter(prefix="/movies", tags=["movies"])
 
