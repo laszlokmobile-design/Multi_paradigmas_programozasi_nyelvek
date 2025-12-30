@@ -22,18 +22,23 @@ origins = [
     "http://127.0.0.1:8501",
     "http://127.0.0.1:8000",  # Swagger UI
     "http://localhost:8000",  # Swagger UI
+    https://https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # beadandóhoz OK
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 #3️⃣ Routerek hozzáadása
 app.include_router(auth_router.router)
 app.include_router(movies.router)
 app.include_router(password_reset_router)
+
+
+
 
 @app.on_event("startup")
 def on_startup():
@@ -52,7 +57,9 @@ def on_startup():
 async def root():
     return {"message": "Mozi API fut!"}
 
-
+@app.get("/healthz")
+def healthz():
+    return {"status": "ok"}
 
 
 
