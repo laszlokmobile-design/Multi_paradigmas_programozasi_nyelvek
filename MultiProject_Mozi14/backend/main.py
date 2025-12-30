@@ -22,7 +22,7 @@ origins = [
     "http://127.0.0.1:8501",
     "http://127.0.0.1:8000",  # Swagger UI
     "http://localhost:8000",  # Swagger UI
-    https://https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
+    "https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/"
 ]
 app.add_middleware(
     CORSMiddleware,
