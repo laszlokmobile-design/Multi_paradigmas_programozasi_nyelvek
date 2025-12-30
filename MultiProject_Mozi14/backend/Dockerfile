@@ -12,6 +12,10 @@ WORKDIR /app
 # Copy everything from the current directory (backend)
 #COPY . .
 COPY . /app
+
+# Másoljuk külön a movies.db-t a konténerbe
+COPY movies.db ./movies.db
+
 # Python path beállítása, hogy a backend root csomagként legyen elérhető
 ENV PYTHONPATH=/app
 
@@ -24,4 +28,5 @@ EXPOSE 8000
 
 # Start server
 CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
 
