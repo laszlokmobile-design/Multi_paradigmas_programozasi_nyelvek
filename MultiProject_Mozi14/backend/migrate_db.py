@@ -1,6 +1,6 @@
 # backend/migrate_db.py
-from backend.database import Base, engine
-from backend.models import Movie  # feltételezve, hogy van Movie modell
+from database import Base, engine
+from models import Movie  # feltételezve, hogy van Movie modell
 from sqlalchemy.orm import Session
 import sqlite3
 
