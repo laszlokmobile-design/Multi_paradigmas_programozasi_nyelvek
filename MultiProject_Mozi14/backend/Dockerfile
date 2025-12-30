@@ -24,7 +24,9 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 EXPOSE 8000
 
 # Start server + migráció
-CMD ["sh", "-c", "python backend/migrate_db.py && uvicorn backend.main:app --host 0.0.0.0 --port $PORT"]
+#CMD ["sh", "-c", "python backend/migrate_db.py && uvicorn backend.main:app --host 0.0.0.0 --port $PORT"]
+CMD ["sh", "/app/start.sh"]
+
 
 
 
