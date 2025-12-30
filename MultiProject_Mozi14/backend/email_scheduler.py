@@ -31,7 +31,7 @@ formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
-API_BASE = os.getenv("API_BASE", "http://127.0.0.1:8000")
+API_BASE = os.getenv("API_BASE")  # .env-ből olvassa
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 EMAIL_TO = os.getenv("EMAIL_TO")  # pl. "teszt@example.com"
@@ -111,5 +111,6 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
 
