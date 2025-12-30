@@ -1,8 +1,8 @@
 #backend/tasks.py
 import schedule, time, requests
-from .crud import create_movie
-from .database import SessionLocal
-from .schemas import MovieCreate
+from crud import create_movie
+from database import SessionLocal
+from schemas import MovieCreate
 
 """
 ✔ Minden nap 03:00-kor letölt 5 új termékadatot a dummy API-ból
@@ -34,3 +34,4 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(60)
+
