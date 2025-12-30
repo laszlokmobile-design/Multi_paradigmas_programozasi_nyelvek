@@ -16,7 +16,7 @@ st.set_page_config(page_title="Mozi – Filmajánló", layout="wide")
 # API base URL, secrets.toml-ból vagy default localhost
 # Példa: a környezeti változó DOCKER_FRONTEND legyen "true" Docker esetén
 if os.getenv("DOCKER_FRONTEND", "false").lower() == "true":
-    API_BASE = st.secrets.get("API_BASE", "http://fastapi-backend:8000")
+    API_BASE = "https://mozi-backend-21wo.onrender.com"
 else:
     # Lokális futtatás
     API_BASE = st.secrets.get("API_BASE", "http://127.0.0.1:8000")
