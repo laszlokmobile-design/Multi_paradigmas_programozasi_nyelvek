@@ -1,6 +1,6 @@
 #backend/models.py
 from sqlalchemy import Column, Integer, String, Float, Text, DateTime, func,Boolean
-from .database import Base
+from database import Base
 from datetime import datetime
 
 """
