@@ -71,8 +71,4 @@ def get_password_hash(password: str) -> str:
     password_bytes = password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
     return pwd_context.hash(password_bytes)
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    # Truncate plain_password ugyanúgy, mint hash-eléskor
-    password_bytes = plain_password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
-    return pwd_context.verify(password_bytes, hashed_password)
 
