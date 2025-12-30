@@ -9,7 +9,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 #2️⃣ SQLAlchemy engine létrehozása
 # SQLite esetén connect_args szükséges
-connect_args = {"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
+#connect_args = {"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
 
 engine = create_engine(DATABASE_URL)
 
