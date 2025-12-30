@@ -10,8 +10,8 @@ import schedule
 import time
 import logging
 from dotenv import load_dotenv
-from backend.database import SessionLocal
-from backend.models import User
+from database import SessionLocal
+from models import User
 """
 Ez a modul az előző napi filmfeltöltések értesítését automatizálja:
 Lekéri a backendből az új filmeket
@@ -111,4 +111,5 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
