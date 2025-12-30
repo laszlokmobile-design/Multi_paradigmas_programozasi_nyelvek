@@ -4,9 +4,10 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 #from .auth import get_password_hash, pwd_context
 #from .models import User  # igazítsd a helyes útvonalra
-from backend import models, schemas
-from backend.auth import get_password_hash, pwd_context
-from backend.models import User
+import models
+import schemas
+from auth import get_password_hash, pwd_context
+from models import User
 # 1️⃣ Users műveletek
 # ------ Users ------
 def get_user_by_username(db: Session, username: str) -> Optional[models.User]:
