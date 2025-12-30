@@ -82,11 +82,16 @@ def fetch_new_movies():
             obj = create_movie(db, movie)
             created.append(obj)
         if created and EMAIL_ON_NEW:
-            body = f"Created {len(created)} new movies:\n" + "\n".join([f"{m.id}: {m.title}" for m in created])
-            send_email("Mozi: New movies added", body)
+            # Az összes User email lekérése az adatbázisból
+            users = db.query(User).all()
+            to_emails = [u.email for u in users if u.email]
+            if to_emails:
+                body = f"Created {len(created)} new movies:\n" + "\n".join([f"{m.id}: {m.title}" for m in created])
+                send_email("Mozi: New movies added", body, to_emails)
         logger.info("Background: saved %d items", len(created))
     finally:
         db.close()
+
 # 3️⃣ Ütemezett futtatás
 def scheduler_loop():
     # production: schedule.every().day.at("03:00").do(fetch_new_movies)
