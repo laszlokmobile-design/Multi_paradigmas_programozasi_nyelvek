@@ -27,8 +27,10 @@ def create_user(db: Session, user: schemas.UserCreate) -> models.User:
 def get_users(db: Session):
     return db.query(User).all()
 
-def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    # Truncate plain_password ugyanúgy, mint hash-eléskor
+    password_bytes = plain_password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
+    return pwd_context.verify(password_bytes, hashed_password)
 #2️⃣ Movies műveletek
 # ------ Movies ------
 def get_movies(db: Session, skip: int = 0, limit: int = 100) -> List[models.Movie]:
