@@ -10,9 +10,6 @@ from database import engine, Base
 from password_reset import router as password_reset_router
 from tasks import run_scheduler
 import threading
-# create tables
-#1️⃣ Adatbázis táblák létrehozása
-Base.metadata.create_all(bind=engine)
 
 #2️⃣ FastAPI app létrehozása
 app = FastAPI(title="🎬 Mozi API")
@@ -37,6 +34,11 @@ app.include_router(password_reset_router)
 def on_startup():
     #4️⃣ Logger indítása
     logger.info("Starting Mozi API")
+
+    # ✅ TÁBLÁK LÉTREHOZÁSA
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database tables checked/created")
+    
     # Scheduler indítása (daemon thread)
     # Indítsd csak ha környezeti változó szerint engedélyezett (pl. BACKGROUND=true)
     if os.getenv("BACKGROUND_ENABLED", "true").lower() == "true":
