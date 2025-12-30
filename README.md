@@ -130,7 +130,8 @@ EMAIL_PASSWORD=your_app_password
 REMINDER_TIME=09:00
 
 🚀 Deploy útmutató
-🔵 Backend deploy (Render.com)
+🔵 Backend deploy (Render.com): https://mozi-backend-21wo.onrender.com/
+https://dashboard.render.com/web/srv-d5115dur433s739muo6g
 
 Új Web Service létrehozása
 
