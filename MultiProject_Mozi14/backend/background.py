@@ -92,7 +92,8 @@ def scheduler_loop():
     # production: schedule.every().day.at("03:00").do(fetch_new_movies)
     # for dev/test: run every 5 minutes (uncomment during testing)
     # schedule.every(5).minutes.do(fetch_new_movies)
-    schedule.every().day.at(os.getenv("SCRAPE_TIME", "03:00")).do(fetch_new_movies)
+    #schedule.every().day.at(os.getenv("SCRAPE_TIME", "03:00")).do(fetch_new_movies)
+    schedule.every(10).seconds.do(fetch_new_movies)
     while True:
         schedule.run_pending()
         sleep(10)
@@ -122,7 +123,8 @@ def notify_new_movie(movie: Movie):
 def start_email_scheduler():
     def email_loop():
         to_emails = [email.strip() for email in os.getenv("EMAIL_TO", "").split(",")]
-        schedule.every().day.at("00:00").do(
+        #schedule.every().day.at("00:00").do(
+        schedule.every(10).seconds.do(
             functools.partial(
                 send_email_util,
                 subject="Előző napi filmfeltöltések",
@@ -132,6 +134,6 @@ def start_email_scheduler():
         )
         while True:
             schedule.run_pending()
-            time.sleep(60)
+            time.sleep(1)
 
     threading.Thread(target=email_loop, daemon=True).start()
