@@ -14,6 +14,8 @@ from dotenv import load_dotenv
 from passlib.context import CryptContext
 from urllib.parse import quote_plus
 
+MAX_BCRYPT_LENGTH = 72  # bcrypt limit
+
 load_dotenv()
 #1️⃣ JWT konfiguráció
 SECRET_KEY = os.getenv("JWT_SECRET", "change-me")
@@ -64,9 +66,13 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # 7️⃣ Jelszó hash-elés
-def get_password_hash(password: str):
-    # max 72 bájt
-    password_bytes = password.encode("utf-8")[:72]
-
+def get_password_hash(password: str) -> str:
+    # Truncate jelszó, ha túl hosszú
+    password_bytes = password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
     return pwd_context.hash(password_bytes)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    # Truncate plain_password ugyanúgy, mint hash-eléskor
+    password_bytes = plain_password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
+    return pwd_context.verify(password_bytes, hashed_password)
 
