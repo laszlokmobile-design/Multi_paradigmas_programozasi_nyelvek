@@ -1,0 +1,20 @@
+name: Backend Tests
+
+on: [push, pull_request]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install -r MultiProject_Mozi14/backend/requirements.txt
+          pip install pytest
+      - name: Run backend tests
+        run: |
+          pytest MultiProject_Mozi14/test/test_backend.py
