@@ -7,16 +7,16 @@ import smtplib
 import ssl
 import os
 from email.message import EmailMessage
-from .database import SessionLocal
-from .schemas import MovieCreate
-from .logger import logger
+from database import SessionLocal
+from schemas import MovieCreate
+from logger import logger
 from dotenv import load_dotenv
-from .notifications import notify_new_movies
+from notifications import notify_new_movies
 #from backend.database import SessionLocal
 from backend.models import Movie, User
 from backend.email_utils import send_email, build_new_movie_email
 from sqlalchemy.orm import Session
-from .email_utils import send_email as send_email_util
+from email_utils import send_email as send_email_util
 import time
 import functools
 
