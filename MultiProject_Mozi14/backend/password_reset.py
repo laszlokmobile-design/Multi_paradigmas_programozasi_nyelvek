@@ -7,8 +7,8 @@ import os
 import smtplib
 from email.message import EmailMessage
 from fastapi import Depends
-from backend.models import User
-from backend.database import get_db
+from models import User
+from database import get_db
 from passlib.context import CryptContext
 
 """
@@ -66,5 +66,6 @@ def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(
     user.hashed_password = pwd_context.hash(request.new_password)
     user.password_reset_token = None
     db.commit()
+
 
     return {"detail": "A jelszó sikeresen módosítva."}
