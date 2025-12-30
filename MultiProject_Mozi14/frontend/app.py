@@ -19,7 +19,7 @@ if os.getenv("DOCKER_FRONTEND", "false").lower() == "true":
     API_BASE = "https://mozi-backend-21wo.onrender.com"
 else:
     # Lokális futtatás
-    API_BASE = st.secrets.get("API_BASE", "http://127.0.0.1:8000")
+    API_BASE = st.secrets["API_BASE"]
 
 # egyszerű token tárolás a session_state-ben
 if "token" not in st.session_state:
