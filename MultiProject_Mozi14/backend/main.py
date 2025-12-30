@@ -42,10 +42,10 @@ def on_startup():
     # Scheduler indítása (daemon thread)
     # Indítsd csak ha környezeti változó szerint engedélyezett (pl. BACKGROUND=true)
     if os.getenv("BACKGROUND_ENABLED", "true").lower() == "true":
-        # 5️⃣ Scheduler indítása: task.py futtatása
-        start_scheduler_in_thread()  # a fetch_new_movies scheduler
-        start_email_scheduler()       # az email scheduler
-        #threading.Thread(target=run_scheduler, daemon=True).start()
+        threading.Thread(target=start_scheduler_in_thread, daemon=True).start()
+        threading.Thread(target=start_email_scheduler, daemon=True).start()
+        logger.info("Background schedulers started")
+
 
 
 @app.get("/")
