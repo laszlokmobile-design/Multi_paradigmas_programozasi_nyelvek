@@ -22,6 +22,10 @@ def get_db(): #Adatbázis kapcsolat
 def read_movies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):#Aláírás
     return crud.get_movies(db, skip=skip, limit=limit)
 
+@router.get("/top10", tags=["movies"])
+def top10_movies(db: Session = Depends(get_db)):
+    return {"top10": crud.get_top10_movies(db)}
+
 @router.get("/{movie_id}", response_model=schemas.MovieRead)#konkrét film lekérése
 def read_movie(movie_id: int, db: Session = Depends(get_db)):
     m = crud.get_movie(db, movie_id)
@@ -65,7 +69,5 @@ def post_movie(
 def stats(db: Session = Depends(get_db)):
     return crud.get_stats(db)
 
-@router.get("/top10", tags=["movies"])
-def top10_movies(db: Session = Depends(get_db)):
-    return {"top10": crud.get_top10_movies(db)}
+
 
