@@ -10,6 +10,8 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 TMDB_API_KEY = os.getenv("TMDB_API_KEY") 
 BASE_URL = "https://api.themoviedb.org/3"
 
+
+
 def send_discord_message(content: str):
     if not DISCORD_WEBHOOK_URL:
         print("Webhook URL nincs beállítva")
@@ -62,6 +64,11 @@ def fetch_random_movie_db():
         print(f"Hiba a film lekérésekor: {e}")
     finally:
         db.close()
+def run_scheduler():
+    schedule.every().day.at("10:00").do(fetch_random_movie_db)
 
+    while True:
+        schedule.run_pending()
+        time.sleep(60)
 
 
