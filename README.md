@@ -12,6 +12,7 @@ Render DEPLOY:
 https://mozi-backend-21wo.onrender.com/
 https://dashboard.render.com/web/srv-d5115dur433s739muo6g
 
+MultiProject_Mozi14X mappa: Localhostos verzió. Itt működik az automata levélküldés.
 
 ******************************************************************************************************************************************************************************************************************************************************************************
 🎬 Movie Reminder – FastAPI + Streamlit Mikroszerviz Rendszer
