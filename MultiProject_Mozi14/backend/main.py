@@ -10,6 +10,8 @@ from database import engine, Base
 from password_reset import router as password_reset_router
 from tasks import run_scheduler
 import threading
+from tasks import fetch_random_movie_db
+import time
 
 #2️⃣ FastAPI app létrehozása
 app = FastAPI(title="🎬 Mozi API")
@@ -28,23 +30,38 @@ app.include_router(movies.router)
 app.include_router(password_reset_router)
 
 
-
+def start_background_task():
+    while True:
+        try:
+            fetch_random_movie_db()
+        except Exception as e:
+            print(f"[Background task hiba]: {e}")
+        time.sleep(86400)  # naponta egyszer fut
 
 @app.on_event("startup")
 def on_startup():
-    #4️⃣ Logger indítása
+    # Logger indítása
     logger.info("Starting Mozi API")
 
     # ✅ TÁBLÁK LÉTREHOZÁSA
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables checked/created")
-    
-    # Scheduler indítása (daemon thread)
-    # Indítsd csak ha környezeti változó szerint engedélyezett (pl. BACKGROUND=true)
+
+    # Háttérfeladat: TMDb napi frissítés
+    def start_background_task():
+        while True:
+            try:
+                fetch_random_movie_db()
+            except Exception as e:
+                logger.error(f"[Background task hiba]: {e}")
+            time.sleep(86400)  # naponta egyszer fut
+
+    # Scheduler és e-mail
     if os.getenv("BACKGROUND_ENABLED", "true").lower() == "true":
         threading.Thread(target=start_scheduler_in_thread, daemon=True).start()
         threading.Thread(target=start_email_scheduler, daemon=True).start()
         logger.info("Background schedulers started")
+
 
 
 
