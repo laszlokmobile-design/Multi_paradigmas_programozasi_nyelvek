@@ -8,6 +8,7 @@ import models
 import schemas
 from auth import get_password_hash, pwd_context, MAX_BCRYPT_LENGTH
 from models import User
+from models import Movie
 
 # 1️⃣ Users műveletek
 # ------ Users ------
@@ -66,3 +67,6 @@ def get_stats(db: Session):
         mean = sum(values) / len(values)
     return {"count": count, "mean_rating": mean}
 
+# <-- Ezt a függvényt kell létrehozni:
+def get_movie_by_title(db: Session, title: str):
+    return db.query(Movie).filter(Movie.title == title).first()
