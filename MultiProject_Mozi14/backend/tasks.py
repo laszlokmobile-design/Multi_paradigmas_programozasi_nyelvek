@@ -70,11 +70,6 @@ def fetch_random_movie_db():
     finally:
         db.close()
 
-            create_movie(db, movie)
-        print("🎞️ Filmadatok frissítve!")
-    finally:
-        db.close()
-
 def run_scheduler():
     schedule.every().day.at("03:00").do(fetch_new_movies)
     while True:
@@ -123,6 +118,7 @@ def fetch_random_movie_db():
         print(f"Hiba a film lekérésekor: {e}")
     finally:
         db.close()
+
 
 
 
