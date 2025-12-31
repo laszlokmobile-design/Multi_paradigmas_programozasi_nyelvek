@@ -11,6 +11,9 @@ import random
 ✔ Ezeket „filmekként” hozzáadja az adatbázishoz
 ✔ Minden futás után kiír egy státuszüzenetet
 """
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+TMDB_API_KEY = os.getenv("TMDB_API_KEY") 
+BASE_URL = "https://api.themoviedb.org/3"
 
 def fetch_new_movies():
     db = SessionLocal()
@@ -40,8 +43,6 @@ def run_scheduler():
 
 
 
-TMDB_API_KEY = os.getenv("TMDB_API_KEY") 
-BASE_URL = "https://api.themoviedb.org/3"
 
 # Eddig lekért filmek ID-ja
 seen_movie_ids = set()
@@ -81,3 +82,4 @@ def fetch_random_movie_db():
         print(f"Hiba a film lekérésekor: {e}")
     finally:
         db.close()
+
