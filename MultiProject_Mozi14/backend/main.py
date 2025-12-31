@@ -30,21 +30,6 @@ app.include_router(movies.router)
 app.include_router(password_reset_router)
 
 
-
-# Teszteld a Discord webhookot induláskor
-test_discord.test_discord_webhook()
-
-# Itt jöhet a FastAPI indítása
-import subprocess
-import sys
-
-subprocess.Popen([
-    sys.executable, "-m", "uvicorn",
-    "backend.main:app",
-    "--host", "0.0.0.0",
-    "--port", "8000"
-])
-
 """
 def start_background_task():
     while True:
