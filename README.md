@@ -6,7 +6,7 @@
 
 MultiProject_Mozi14 mappa: a projekt deployolásra került a Streamlit és a Render felületen, de a Gmail automata levélküldést a Render nem engedélyezi. Más támogatott levélküldő rendszerek pl: SendGird elutasították a regisztrációmat. Lásd a SendGird Support.pdf fájlt.
 
-Streamlit DEPLOY: https://multiparadigmasprogramozasinyelvek-wnsstvzhvdn9gzytysqjul.streamlit.app/](https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
+Streamlit DEPLOY: https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
 
 Render DEPLOY:
 https://mozi-backend-21wo.onrender.com/
@@ -229,7 +229,7 @@ Repository + file: frontend/app.py
 
 Environment → Secret variables → ugyanazok a .env értékeid
 
-Deploy LINK: [https://multiparadigmasprogramozasinyelvek-wnsstvzhvdn9gzytysqjul.streamlit.app/](https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/)
+Deploy LINK: https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
 
 📊 Vizualizáció (Altair + Pandas)
 
