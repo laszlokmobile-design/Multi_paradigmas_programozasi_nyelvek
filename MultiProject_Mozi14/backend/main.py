@@ -55,7 +55,7 @@ def on_startup():
                 fetch_random_movie_db()
             except Exception as e:
                 logger.error(f"[Background task hiba]: {e}")
-            time.sleep(60)  # naponta egyszer fut új film
+            time.sleep(1000)  # naponta egyszer fut új film
 
     # TMDb háttérthread indítása
     threading.Thread(target=start_background_task, daemon=True).start()
