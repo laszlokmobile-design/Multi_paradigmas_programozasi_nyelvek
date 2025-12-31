@@ -1,0 +1,38 @@
+#docker-compose.yml
+#Összekapcsolja a backend és a frontend szolgáltatásokat
+version: "3.9"
+
+services:
+  fastapi-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - API_TOKEN=${API_TOKEN}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - EMAIL_TO=${EMAIL_TO}
+      - REMINDER_TIME=${REMINDER_TIME}
+      - DATABASE_URL=sqlite:///./movies.db
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./backend:/app/backend
+    restart: unless-stopped
+
+  streamlit-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: streamlit-frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi-backend
+    volumes:
+      - ./frontend:/app
+      - ./frontend/.streamlit:/app/.streamlit
+    command: streamlit run app.py --server.address=0.0.0.0 --server.port=8501
+    restart: unless-stopped
