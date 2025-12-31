@@ -210,7 +210,7 @@ Moduláris, mikroszerviz jellegű struktúra
 Könnyen bővíthető új API-kal vagy új vizualizációval
 
 
-### DOCKER HIBA: (CSAK LOCALHOST)( ###
+### DOCKER HIBA: (CSAK LOCALHOST) ###
 A Docker Compose nem tud új konténert létrehozni ugyanazzal a névvel, amíg a régi konténer létezik.
 Megoldás lépésről lépésre:
 
