@@ -56,7 +56,10 @@ def on_startup():
                 logger.error(f"[Background task hiba]: {e}")
             time.sleep(86400)  # naponta egyszer fut
 
-    # Scheduler és e-mail
+    # TMDb háttérthread indítása
+    threading.Thread(target=start_background_task, daemon=True).start()
+
+    # Scheduler és e-mail (csak ha engedélyezve)
     if os.getenv("BACKGROUND_ENABLED", "true").lower() == "true":
         threading.Thread(target=start_scheduler_in_thread, daemon=True).start()
         threading.Thread(target=start_email_scheduler, daemon=True).start()
