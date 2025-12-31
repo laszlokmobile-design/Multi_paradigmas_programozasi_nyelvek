@@ -77,7 +77,3 @@ async def root():
 def healthz():
     return {"status": "ok"}
 
-@router.get("/movies/top10")
-def top10_movies(db: Session = Depends(get_db)):
-    return {"top10": get_top10_movies(db)}
-
