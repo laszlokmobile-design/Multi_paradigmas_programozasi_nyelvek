@@ -70,3 +70,9 @@ def get_stats(db: Session):
 # <-- Ezt a függvényt kell létrehozni:
 def get_movie_by_title(db: Session, title: str):
     return db.query(Movie).filter(Movie.title == title).first()
+
+def get_top10_movies(db: Session) -> List[str]:
+    movies = db.query(Movie).all()
+    # Rendezés rating alapján, majd lista comprehension a címekhez
+    top10_titles = [m.title for m in sorted(movies, key=lambda m: m.rating or 0, reverse=True)[:10]]
+    return top10_titles
