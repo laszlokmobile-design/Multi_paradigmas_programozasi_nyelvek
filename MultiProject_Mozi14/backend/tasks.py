@@ -1,4 +1,5 @@
 #backend/tasks.py
+import os
 import schedule, time, requests
 from crud import create_movie
 from database import SessionLocal
@@ -88,3 +89,4 @@ def fetch_random_movie_db():
         print(f"Hiba a film lekérésekor: {e}")
     finally:
         db.close()
+
