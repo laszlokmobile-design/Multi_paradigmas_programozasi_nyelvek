@@ -299,6 +299,20 @@ elif menu == "Statisztika":
         st.metric("Átlag rating", f"{mean:.2f}" if mean else "N/A")
         st.json(stats)
 
+ # Top10 filmek megjelenítése itt
+    st.subheader("🎬 Top 10 film")
+    try:
+        r = requests.get(f"{API_BASE}/movies/top10", headers=api_headers(), timeout=10)
+        r.raise_for_status()
+        top10 = r.json().get("top10", [])
+        if top10:
+            for i, title in enumerate(top10, start=1):
+                st.write(f"{i}. {title}")
+        else:
+            st.info("Nincs elérhető adat.")
+    except Exception as e:
+        st.error(f"Hiba a Top10 filmek lekérésekor: {e}")
+
 ####################
 # PROFIL / KIJELENTKEZÉS
 ####################
