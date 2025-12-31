@@ -57,7 +57,7 @@ def send_email(subject: str, body: str, to_emails: list[str] | None = None):
         logger.exception("Failed to send email: %s", e)
 # 2️⃣ Új filmek lekérése
 def fetch_new_movies():
-    from .crud import create_movie
+    from crud import create_movie
     logger.info("Background: fetching new movies")
     try:
         r = requests.get(SCRAPE_URL, timeout=10)
