@@ -68,7 +68,65 @@ ERROR: kritikus hibák (pl. adatbázis kapcsolat megszakadása)
 A logok alapértelmezés szerint a konzolon jelennek meg, de a jövőben könnyen konfigurálható fájlba írásra is.
 
 🧱 Projekt architektúra
-project/ │ ├── backend/ │ ├── api/ │ ├──__init__.py (Python package) │ │ ├── auth.py │ │ └── movies.py │ ├── .env │ ├── init.py (Python package) │ ├── auth.py │ ├── background.py │ ├── crud.py │ ├── database.py │ ├── Dockerfile │ ├── email_scheduler.py │ ├── email_utils.py │ ├── logger.py │ ├── main.py │ ├──models.py │ ├──notifications.py │ ├──password_reset.py │ ├──requirements.txt │ ├──schemas.py │ ├──seed.py │ └──tasks.py │ ├── frontend/ │ ├── components │ │ ├── init.py (Python package) │ │ ├──add_movie_form.py │ │ ├──auth_forms.py │ │ ├──charts.py │ │ ├──movie_list.py │ │ └──navigation.py │ ├── utils │ │ ├── init.py (Python package) │ │ └── api.py │ ├──__init__.py (Python package) │ ├──app.py │ ├──Dockerfile │ └──requirements.txt │ ├── tests/ │ ├── init.py (Python package) │ ├── test_create_user.py │ ├── test_email.py │ └── test_movies.py │ │ ├── .env example ├── docker-compose.yml ├── main.py ├── movies.db ├── requirements.txt ├──README.md ├──start_backend.sh ├──start_frontend.sh └──test.db
+# 🧱 Projekt architektúra
+project/
+│
+├── backend/
+│ ├── api/
+│ ├──__init__.py (Python package)
+│ │   ├── auth.py
+│ │   └── movies.py
+│ ├── .env
+│ ├── __init__.py (Python package)
+│ ├── auth.py
+│ ├── background.py
+│ ├── crud.py
+│ ├── database.py
+│ ├── Dockerfile
+│ ├── email_scheduler.py
+│ ├── email_utils.py
+│ ├── logger.py
+│ ├── main.py
+│ ├──models.py
+│ ├──notifications.py
+│ ├──password_reset.py
+│ ├──requirements.txt
+│ ├──schemas.py
+│ ├──seed.py
+│ └──tasks.py
+│
+├── frontend/
+│ ├── components
+│ │   ├── __init__.py (Python package)
+│ │   ├──add_movie_form.py
+│ │   ├──auth_forms.py
+│ │   ├──charts.py
+│ │   ├──movie_list.py
+│ │   └──navigation.py 
+│ ├──  utils
+│ │    ├── __init__.py (Python package)
+│ │    └── api.py
+│ ├──__init__.py (Python package)
+│ ├──app.py
+│ ├──Dockerfile
+│ └──requirements.txt
+│
+├── tests/
+│ ├── __init__.py (Python package)
+│ ├── test_create_user.py
+│ ├── test_email.py
+│ └── test_movies.py
+│
+│
+├── .env example
+├── docker-compose.yml
+├── main.py
+├── movies.db
+├── requirements.txt
+├──README.md
+├──start_backend.sh
+├──start_frontend.sh
+└──test.db
 
 🔹 Hibakezelés és logolás (példa) backend/logger.py import logging
 
