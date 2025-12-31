@@ -1,7 +1,7 @@
 !!!!!!!!!!!!
 !!!FONTOS!!!
 !!!!!!!!!!!!
-MultiProject_Mozi14 mappa: a projekt deployolásra került a Streamlit és a Render felületen, de a Gmail automata levélküldést a Render nem engedélyezi. Más támogatott levélküldő rendszerek pl: SendGird elutasíták a regisztrációmat. Lásd a SendGird Support.pdf fájlt.
+MultiProject_Mozi14 mappa: a projekt deployolásra került a Streamlit és a Render felületen, de a Gmail automata levélküldést a Render nem engedélyezi. Más támogatott levélküldő rendszerek pl: SendGird elutasították a regisztrációmat. Lásd a SendGird Support.pdf fájlt.
 Streamlit DEPLOY: https://multiparadigmasprogramozasinyelvek-wnsstvzhvdn9gzytysqjul.streamlit.app/](https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
 Render DEPLOY:
 https://mozi-backend-21wo.onrender.com/
