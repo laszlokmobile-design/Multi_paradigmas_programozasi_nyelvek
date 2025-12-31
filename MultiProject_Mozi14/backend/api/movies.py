@@ -7,6 +7,7 @@ import schemas
 from database import SessionLocal
 from auth import get_current_user
 from email_utils import send_email, build_new_movie_email
+from crud import get_top10_movies
 
 router = APIRouter(prefix="/movies", tags=["movies"])
 
@@ -63,4 +64,8 @@ def post_movie(
 @router.get("/stats/", tags=["movies"])
 def stats(db: Session = Depends(get_db)):
     return crud.get_stats(db)
+
+@router.get("/top10", tags=["movies"])
+def top10_movies(db: Session = Depends(get_db)):
+    return {"top10": crud.get_top10_movies(db)}
 
