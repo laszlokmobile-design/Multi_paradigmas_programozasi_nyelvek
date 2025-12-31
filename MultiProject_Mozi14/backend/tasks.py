@@ -48,45 +48,36 @@ seen_movie_ids = set()
 
 def fetch_random_movie_db():
     db = SessionLocal()
-    max_attempts = 10
     try:
-        for _ in range(max_attempts):
-            movie_id = random.randint(1, 1000)
-            if movie_id in seen_movie_ids:
-                continue
+        url = f"{BASE_URL}/movie/now_playing"
+        params = {
+            "api_key": TMDB_API_KEY,
+            "language": "hu-HU",
+            "page": 1
+        }
+        r = requests.get(url, params=params)
+        r.raise_for_status()
+        data = r.json()["results"]
 
-            url = f"{BASE_URL}/movie/{movie_id}"
-            params = {"api_key": TMDB_API_KEY, "language": "hu-HU"}
+        movie = random.choice(data)
+        title = movie["title"]
+        year = movie.get("release_date", "").split("-")[0]
+        rating = movie.get("vote_average") or 7.5
+        description = movie.get("overview") or ""
+        poster_url = f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get('poster_path') else None
 
-            r = requests.get(url, params=params, timeout=10)
-            r.raise_for_status()
-            data = r.json()
-
-            title = data.get("title")
-            if not title:
-                continue  # üres cím esetén skip
-
-            year = data.get("release_date", "").split("-")[0] if data.get("release_date") else 2024
-            rating = data.get("vote_average") or 7.5
-            description = data.get("overview") or ""
-            poster_url = f"https://image.tmdb.org/t/p/w500{data.get('poster_path')}" if data.get('poster_path') else None
-
-            # DB-be mentés
-            movie = MovieCreate(
-                title=title,
-                year=int(year) if year else None,
-                genre="Drama",
-                rating=float(rating),
-                description=description,
-                poster_url=poster_url
-            )
-            create_movie(db, movie)
-            seen_movie_ids.add(movie_id)
-
-            print(f"[{datetime.now()}] 🎬 {title} ({year}) ⭐ {rating}")
-            return
+        # Mentés az adatbázisba
+        db_movie = MovieCreate(
+            title=title,
+            year=int(year) if year else None,
+            genre="Drama",
+            rating=float(rating),
+            description=description,
+            poster_url=poster_url
+        )
+        create_movie(db, db_movie)
+        print(f"🎬 {title} ({year}) ⭐ {rating}")
     except Exception as e:
         print(f"Hiba a film lekérésekor: {e}")
     finally:
         db.close()
-
