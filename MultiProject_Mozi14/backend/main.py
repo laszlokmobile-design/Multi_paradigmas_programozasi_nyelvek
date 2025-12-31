@@ -30,6 +30,7 @@ app.include_router(movies.router)
 app.include_router(password_reset_router)
 
 
+"""
 def start_background_task():
     while True:
         try:
@@ -37,7 +38,7 @@ def start_background_task():
         except Exception as e:
             print(f"[Background task hiba]: {e}")
         time.sleep(86400)  # naponta egyszer fut
-
+"""
 @app.on_event("startup")
 def on_startup():
     # Logger indítása
