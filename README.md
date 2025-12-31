@@ -1,8 +1,8 @@
-!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!
 
 !!!FONTOS!!!
 
-!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!
 
 MultiProject_Mozi14 mappa: a projekt deployolásra került a Streamlit és a Render felületen, de a Gmail automata levélküldést a Render nem engedélyezi. Más támogatott levélküldő rendszerek pl: SendGird elutasították a regisztrációmat. Lásd a SendGird Support.pdf fájlt.
 
