@@ -98,7 +98,8 @@ def scheduler_loop():
     # for dev/test: run every 5 minutes (uncomment during testing)
     # schedule.every(5).minutes.do(fetch_new_movies)
     #schedule.every().day.at(os.getenv("SCRAPE_TIME", "03:00")).do(fetch_new_movies)
-    schedule.every(86400).seconds.do(fetch_new_movies)
+    #schedule.every(1000).seconds.do(fetch_new_movies)
+    schedule.every().day.at("03:00").do(fetch_new_movies)
     while True:
         schedule.run_pending()
         sleep(10)
