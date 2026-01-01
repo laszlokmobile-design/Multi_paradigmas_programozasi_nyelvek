@@ -4,15 +4,17 @@
 
 !!!!!!!!!!!!!!!!!!!
 
-MultiProject_Mozi14 mappa: a projekt deployolásra került a Streamlit és a Render felületen, de a Gmail automata levélküldést a Render nem engedélyezi. Helyette discord üzenetet küld.
+MultiProject_Mozi14 és a MultiProject_Mozi14Z lehetővé teszi, hogy a regisztrációt és bejelentkezést követően filmek adatait (film neve, műfaj, év, leírás, opcionálisan: poszter) írjuk bele az adatbázisba.
 
-Streamlit DEPLOY: https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
+  ->MultiProject_Mozi14 mappa: a projekt deployolásra került a Streamlit és a Render felületen, de a Gmail automata levélküldést a Render nem engedélyezi. Helyette discord üzenetet küld.+ a The Movie Database oldalán található fimek közül véletlenszerűen feltölti az adatbázist naponta 1 alkalommal.
 
-Render DEPLOY:
-https://mozi-backend-21wo.onrender.com/
-https://dashboard.render.com/web/srv-d5115dur433s739muo6g
+    Streamlit DEPLOY: https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app/
 
-MultiProject_Mozi14Z mappa: Legfrissebb Localhostos verzió. Itt működik az automata levélküldés. Dockerizálás. Futtatás: MultiProject_Mozi14Z/main.py.
+    Render DEPLOY:
+    https://mozi-backend-21wo.onrender.com/
+    https://dashboard.render.com/web/srv-d5115dur433s739muo6g
+
+  ->MultiProject_Mozi14Z mappa: Legfrissebb Localhostos verzió. Itt működik az automata levélküldés. Dockerizálás. Futtatás: MultiProject_Mozi14Z/main.py.
 
 ******************************************************************************************************************************************************************************************************************************************************************************
 🎬 Movie Reminder – FastAPI + Streamlit Mikroszerviz Rendszer
