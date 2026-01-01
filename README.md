@@ -171,6 +171,7 @@ Funkcionális: REST endpointok, adatfeldolgozó függvények
 
 Procedurális: fő script futtatása, schedule logika, teszt setup
 
+LOCALHOST-os verzió esetében:
 ⚙️ Telepítés és futtatás
 1️⃣ Virtuális környezet létrehozása
 python -m venv venv
