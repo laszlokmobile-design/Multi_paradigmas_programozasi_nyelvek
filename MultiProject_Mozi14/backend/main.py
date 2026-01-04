@@ -13,6 +13,12 @@ import threading
 from tasks import fetch_random_movie_db
 import time
 import test_discord#
+
+# ======================================================
+# OBJEKTUMORIENTÁLT PROGRAMOZÁS
+# - FastAPI app objektum létrehozása, routerek és middleware-ek
+# ======================================================
+
 #2️⃣ FastAPI app létrehozása
 app = FastAPI(title="🎬 Mozi API")
 
@@ -39,6 +45,11 @@ def start_background_task():
             print(f"[Background task hiba]: {e}")
         time.sleep(86400)  # naponta egyszer fut
 """
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre futó inicializáció
+# ======================================================
+
 @app.on_event("startup")
 def on_startup():
     # Logger indítása
@@ -48,6 +59,11 @@ def on_startup():
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables checked/created")
 
+# ======================================================
+# FUNKCIONÁLIS + PROCEDURÁLIS ELEMEK
+# - Háttérfeladatok elkülönített függvények, újrafelhasználhatók, thread-ben futtatva
+# ======================================================
+    
     # Háttérfeladat: TMDb napi frissítés
     def start_background_task():
         while True:
@@ -66,7 +82,10 @@ def on_startup():
         threading.Thread(target=start_email_scheduler, daemon=True).start()
         logger.info("Background schedulers started")
 
-
+# ======================================================
+# OBJEKTUMORIENTÁLT + FUNKCIONÁLIS
+# - API végpontok definiálása
+# ======================================================
 
 
 @app.get("/")
