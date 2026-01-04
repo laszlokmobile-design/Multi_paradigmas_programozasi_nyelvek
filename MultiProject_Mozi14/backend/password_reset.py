@@ -18,12 +18,19 @@ SMTP emailküldés
 Token tárolása adatbázisban
 Környezeti változók használata
 """
-
+# ======================================================
+# OOP + DEKLARATÍV
+# - Pydantic modellek objektumként kezelhetők
+# - SQLAlchemy ORM lekérdezések deklaratívan írják le az adatbázis logikát
+# ======================================================
 router = APIRouter()
 
 class PasswordResetRequest(BaseModel):
     email: str
-
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre végrehajtott jelszó reset logika
+# ======================================================
 @router.post("/auth/password-reset/")  # app helyett router
 def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == request.email).first()
@@ -57,6 +64,10 @@ class PasswordResetConfirm(BaseModel):
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+# ======================================================
+# PROCEDURÁLIS + DEKLARATÍV + OOP
+# - Hash-elés funkcionális, ORM műveletek deklaratívak
+# ======================================================
 @router.post("/auth/password-reset/confirm/")
 def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.password_reset_token == request.token).first()
@@ -69,4 +80,5 @@ def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(
 
 
     return {"detail": "A jelszó sikeresen módosítva."}
+
 
