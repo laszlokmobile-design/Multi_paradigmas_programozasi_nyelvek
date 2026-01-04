@@ -1,4 +1,9 @@
 #backend/tasks.py
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre végrehajtott műveletek
+# - Lekérdezés TMDb API-ról, adatbázisba mentés, Discord értesítés
+# ======================================================
 import os
 import schedule, time, requests
 from crud import create_movie, get_movie_by_title
@@ -11,7 +16,10 @@ TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 BASE_URL = "https://api.themoviedb.org/3"
 
 
-
+# ======================================================
+# FUNKCIONÁLIS PROGRAMOZÁS
+# - Elkülönített, újrafelhasználható műveletek
+# ======================================================
 def send_discord_message(content: str):
     if not DISCORD_WEBHOOK_URL:
         print("Webhook URL nincs beállítva")
@@ -70,5 +78,6 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(60)
+
 
 
