@@ -18,15 +18,15 @@ from urllib.parse import quote_plus
 # DEKLARATÍV PROGRAMOZÁS
 # - Konfigurációk, szabályok, struktúrák leírása
 # ======================================================
+load_dotenv()
 MAX_BCRYPT_LENGTH = 72  # bcrypt limit
-
 #1️⃣ JWT konfiguráció
 SECRET_KEY = os.getenv("JWT_SECRET", "change-me")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
 # 2️⃣ OAuth2PasswordBearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
-load_dotenv()
+
 # ======================================================
 # FUNKCIONÁLIS PROGRAMOZÁS
 # - Tiszta függvények, bemenet → kimenet
@@ -83,6 +83,7 @@ def get_password_hash(password: str) -> str:
     # Truncate jelszó, ha túl hosszú
     password_bytes = password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
     return pwd_context.hash(password_bytes)
+
 
 
 
