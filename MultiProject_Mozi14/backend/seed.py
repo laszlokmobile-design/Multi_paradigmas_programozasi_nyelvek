@@ -3,7 +3,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from backend.models import Base, Movie   # <-- abszolút import
+from backend.models import Base, Movie   # <-- abszolút import,  <-- OOP: Movie modell
 
 """
 ✔ törli a régi adatbázist
@@ -11,6 +11,11 @@ from backend.models import Base, Movie   # <-- abszolút import
 ✔ hozzáad néhány előre megadott filmet
 A kód akkor fut le ha kézzel elindítják
 """
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre végrehajtott adatbázis műveletek
+# - Adatbázis törlése, új táblák létrehozása, adatok beszúrása
+# ======================================================
 
 # SQLite adatbázis elérési út
 DB_PATH = "backend/movies.db"
@@ -25,7 +30,7 @@ def populate_db():
         os.remove(DB_PATH)
         print("🗑️ Régi adatbázis törölve")
 
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine)#(OOP + deklaratív)
     print("✅ Adatbázis és táblák létrehozva")
 
     db = SessionLocal()
@@ -37,11 +42,12 @@ def populate_db():
         Movie(title="Inception", year=2010, genre="Action, Sci-Fi", rating=8.8,
               description="A thief who steals corporate secrets through the use of dream-sharing technology...", poster_url="https://...")
     ]
-    db.add_all(movies)
+    db.add_all(movies) # OOP: Movie objektumok adatbázisba helyezése
     db.commit()
     db.close()
     print("✅ Alapértelmezett filmek feltöltve az adatbázisba")
 
 
 if __name__ == "__main__":
-    populate_db()
+    populate_db()  # Procedurális: lépésről lépésre végrehajtódik
+
