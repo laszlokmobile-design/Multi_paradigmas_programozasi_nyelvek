@@ -10,7 +10,7 @@ Ezeket a modelleket a CRUD műveletek, a scheduler és a REST API használja.
 Nem fut „magától”, csak importáláskor és adatbázis-műveleteknél érvényesülnek.
 """
 # ======================================================
-# DEKLARATÍV PROGRAMOZÁS
+# DEKLARATÍV PROGRAMOZÁS +OOP
 # - ORM modellek: User és Movie osztályok, mezők deklaratív módon
 # ======================================================
 class User(Base):
