@@ -6,6 +6,29 @@ import pandas as pd
 import altair as alt
 import urllib.parse
 
+"""
+1️⃣ Funkcionális programozás
+- Elkülönített függvények (pl. api_headers(), check_backend()).
+- Adatok bemeneti paraméterek alapján kerülnek feldolgozásra.
+- Minimalizált mellékhatás: csak a session_state-t módosítják.
+
+2️⃣ Deklaratív/reaktív programozás
+- Streamlit UI deklaratívan írja le, mit akarunk megjeleníteni (`st.write`, `st.form`, `st.slider`, `st.dataframe`).
+- Nem lépésenkénti DOM manipuláció, hanem leírod a "nézetet", a Streamlit kezeli a renderelést.
+
+3️⃣ Imperatív / Procedurális elemek
+- Hálózati hívások, token kezelés, form submit események feldolgozása.
+- `try/except` blokkok, állapot ellenőrzések és feltételes ágak (if/else).
+- Menü logika és session_state frissítés imperatívan történik.
+
+4️⃣ Objektumorientált programozás
+- Közvetett: session_state egy állapot objektum, de nincs explicit osztálydefiníció.
+- UI komponensek Streamlit formjain keresztül kezelnek "objektumként" adatokat, de OOP nincs használva a backendhez hasonlóan.
+
+5️⃣ Deklaratív + funkcionális keverék
+- UI komponensek + backend API hívások = "elkülönített, újrafelhasználható logika + deklaratív nézet".
+"""
+
 menu = None
 
 # Felhasználótól bekérjük az emailt
