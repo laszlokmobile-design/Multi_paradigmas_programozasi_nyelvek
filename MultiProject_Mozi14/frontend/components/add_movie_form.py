@@ -1,6 +1,11 @@
 # ==== frontend/components/add_movie_form.py ====
 import streamlit as st
 
+# ======================================================
+# FUNKCIONÁLIS PROGRAMOZÁS
+# - Elkülönített, újrafelhasználható függvény
+# - Bemeneti adatokat gyűjt és callback-et hív meg
+# ======================================================
 def add_movie_form(on_submit):
     with st.form("add_movie_form"):
         title = st.text_input("Cím")
@@ -20,4 +25,5 @@ def add_movie_form(on_submit):
                 "description": description,
                 "poster_url": poster_url or None,
             }
+
             on_submit(payload)
