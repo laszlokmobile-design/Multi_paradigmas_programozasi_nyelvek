@@ -23,7 +23,7 @@ import urllib.parse
 
 4️⃣ Objektumorientált programozás
 - Közvetett: session_state egy állapot objektum, de nincs explicit osztálydefiníció.
-- UI komponensek Streamlit formjain keresztül kezelnek "objektumként" adatokat, de OOP nincs használva a backendhez hasonlóan.
+- UI komponensek Streamlit formjain keresztül kezelnek "objektumként" adatokat.
 
 5️⃣ Deklaratív + funkcionális keverék
 - UI komponensek + backend API hívások = "elkülönített, újrafelhasználható logika + deklaratív nézet".
