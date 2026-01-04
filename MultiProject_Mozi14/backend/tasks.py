@@ -72,12 +72,18 @@ def fetch_random_movie_db():
         print(f"Hiba a film lekérésekor: {e}")
     finally:
         db.close()
+
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Ütemezett futtatás (scheduler loop)
+# ======================================================
 def run_scheduler():
     schedule.every().day.at("10:00").do(fetch_random_movie_db)
 
     while True:
         schedule.run_pending()
         time.sleep(60)
+
 
 
 
