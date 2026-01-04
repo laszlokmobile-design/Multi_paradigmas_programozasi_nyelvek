@@ -9,7 +9,10 @@ A User a felhasználókat, a Movie a filmeket kezeli.
 Ezeket a modelleket a CRUD műveletek, a scheduler és a REST API használja.
 Nem fut „magától”, csak importáláskor és adatbázis-műveleteknél érvényesülnek.
 """
-
+# ======================================================
+# DEKLARATÍV PROGRAMOZÁS
+# - ORM modellek: User és Movie osztályok, mezők deklaratív módon
+# ======================================================
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
