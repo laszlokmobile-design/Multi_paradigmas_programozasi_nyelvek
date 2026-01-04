@@ -4,6 +4,15 @@ from database import SessionLocal
 from models import Movie, User
 from email_utils import send_email
 
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre végrehajtott adatbázis műveletek
+# - Lépésről lépésre minden filmhez értesítés küldése
+
+# DEKLARATÍV PROGRAMOZÁS
+# - ORM lekérdezések (SQLAlchemy) leírják az adatok feltételeit
+# ======================================================
+
 def notify_new_movies():
     db: Session = SessionLocal()# Adatbázis kapcsolat létrehozása
     new_movies = db.query(Movie).filter(Movie.notified == False).all()# Lekéri az összes új filmet, amelyről még nem küldtek értesítést:
@@ -13,6 +22,7 @@ def notify_new_movies():
 
     users = db.query(User).all()# Lekéri az összes felhasználó email címét
     emails = [user.email for user in users]
+
 
     # Minden új filmhez elküldi az értesítést a send_email függvénnyel:
     for movie in new_movies:
@@ -29,3 +39,4 @@ def notify_new_movies():
     db.commit()
 
     db.close()
+
