@@ -3,6 +3,11 @@ import requests
 import streamlit as st
 
 """
+# ======================================================
+# FUNKCIONÁLIS PROGRAMOZÁS
+# - Elkülönített, újrafelhasználható függvények
+# - Minden függvény egy konkrét feladatot lát el (login, regisztráció, lekérés, hozzáadás)
+# ======================================================
 ✔ összekapcsolja a Streamlit frontendet a FastAPI back-enddel
 ✔ kezeli a login-t, regisztrációt, filmek lekérését, film hozzáadását
 ✔ automatikusan hozzáadja az Authorization Bearer JWT-t
@@ -32,4 +37,5 @@ def get_movies():
 def add_movie(payload: dict):
 
     return requests.post(f"{API_BASE}/movies/", json=payload, headers=_headers())
+
 
