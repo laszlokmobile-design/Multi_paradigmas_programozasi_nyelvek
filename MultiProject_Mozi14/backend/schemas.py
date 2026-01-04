@@ -11,6 +11,12 @@ from datetime import datetime
 ❗ Nem kell külön futtatni.
 ❗ Automatikusan betöltődik, amikor FastAPI elindul.
 """
+# ======================================================
+# OOP (OBJETKUMORIENTÁLT PROGRAMOZÁS)
+# - Pydantic osztályok (BaseModel) objektumként kezelhetők
+# - Attribútumok, típusok és default értékek deklarálása osztályban
+# ======================================================
+
 # User schemas
 class UserCreate(BaseModel):
     username: str = Field(..., min_length=3, max_length=150)
