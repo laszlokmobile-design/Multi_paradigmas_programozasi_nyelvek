@@ -14,15 +14,23 @@ from dotenv import load_dotenv
 from passlib.context import CryptContext
 from urllib.parse import quote_plus
 
+# ======================================================
+# DEKLARATÍV PROGRAMOZÁS
+# - Konfigurációk, szabályok, struktúrák leírása
+# ======================================================
 MAX_BCRYPT_LENGTH = 72  # bcrypt limit
 
-load_dotenv()
 #1️⃣ JWT konfiguráció
 SECRET_KEY = os.getenv("JWT_SECRET", "change-me")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
 # 2️⃣ OAuth2PasswordBearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
+load_dotenv()
+# ======================================================
+# FUNKCIONÁLIS PROGRAMOZÁS
+# - Tiszta függvények, bemenet → kimenet
+# ======================================================
 # 3️⃣ Access token létrehozása
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -30,6 +38,11 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre végrehajtott folyamat
+# ======================================================
 # 4️⃣ Adatbázis-függőség
 def get_db():
     db = SessionLocal()
@@ -70,5 +83,6 @@ def get_password_hash(password: str) -> str:
     # Truncate jelszó, ha túl hosszú
     password_bytes = password.encode("utf-8")[:MAX_BCRYPT_LENGTH]
     return pwd_context.hash(password_bytes)
+
 
 
