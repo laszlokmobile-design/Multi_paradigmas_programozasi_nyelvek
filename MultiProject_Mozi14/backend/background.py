@@ -20,17 +20,26 @@ from email_utils import send_email as send_email_util
 import time
 import functools
 
+# ======================================================
+# DEKLARATÍV PROGRAMOZÁS
+# - Konfigurációk és szabályok leírása
+# ======================================================
 load_dotenv()
 
 SCRAPE_URL = os.getenv("SCRAPE_URL", "https://dummyjson.com/products?limit=3")
 EMAIL_ON_NEW = os.getenv("EMAIL_ON_NEW", "false").lower() == "true"
-
 SMTP_HOST = os.getenv("SMTP_HOST")
 SMTP_PORT = int(os.getenv("SMTP_PORT") or 587)
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 EMAIL_FROM = os.getenv("EMAIL_FROM")
 EMAIL_TO = os.getenv("EMAIL_TO")  # can be comma separated
+
+# ======================================================
+# FUNKCIONÁLIS PROGRAMOZÁS
+# - Elkülönített, újrafelhasználható függvények
+# ======================================================
+
 #1️⃣ SMTP email küldés funkció
 def send_email(subject: str, body: str, to_emails: list[str] | None = None):
     if not (SMTP_HOST and SMTP_USER and SMTP_PASSWORD and EMAIL_FROM):
@@ -92,6 +101,10 @@ def fetch_new_movies():
     finally:
         db.close()
 
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Időzített, lépésenként végrehajtott folyamatok
+# ======================================================
 # 3️⃣ Ütemezett futtatás
 def scheduler_loop():
     # production: schedule.every().day.at("03:00").do(fetch_new_movies)
@@ -115,6 +128,10 @@ def scheduler_thread():
         schedule.run_pending() 
         sleep(1)
 """
+# ======================================================
+# PROCEDURÁLIS + OBJEKTUMORIENTÁLT
+# - Állapotot kezelő értesítési folyamat
+# ======================================================
 #4️⃣ Új film értesítés
 def notify_new_movie(movie: Movie):
     db: Session = SessionLocal()
@@ -125,7 +142,11 @@ def notify_new_movie(movie: Movie):
         body = build_new_movie_email(movie.title, movie.year, movie.description)
         send_email(subject, body, emails)
     db.close()
-    
+
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Végtelen ciklusban futó háttérfolyamat
+# ====================================================
 #5️⃣ Email scheduler
 def start_email_scheduler():
     def email_loop():
