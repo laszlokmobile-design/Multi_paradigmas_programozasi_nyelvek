@@ -4,8 +4,18 @@ from models import Movie
 import sqlite3
 import os
 
+# ======================================================
+# DEKLARATÍV PROGRAMOZÁS
+# - ORM modellek (Base, Movie) és metadata.create_all deklaratív módon írja le a táblákat
+# ======================================================
+
 # 1️⃣ Táblák létrehozása a cél DB-ben
 Base.metadata.create_all(bind=engine)
+
+# ======================================================
+# PROCEDURÁLIS PROGRAMOZÁS
+# - Lépésről lépésre végrehajtott migráció
+# ======================================================
 
 # 2️⃣ Adatok átmásolása
 src_db_path = os.path.join(os.path.dirname(__file__), "movies.db")  # biztos út
