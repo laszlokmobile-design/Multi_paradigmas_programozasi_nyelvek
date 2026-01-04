@@ -19,6 +19,10 @@ Lekéri a backendből az új filmeket
 Elküldi a címzetteknek
 Naponta egyszer fut (ütemezett)
 """
+# ======================================================
+# DEKLARATÍV PROGRAMOZÁS
+# - Konfigurációk és környezeti változók
+# ======================================================
 REMINDER_TIME = os.getenv("REMINDER_TIME", "09:00")  # alapértelmezett 09:00
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
@@ -43,6 +47,16 @@ if not all([SMTP_USER, SMTP_PASSWORD, EMAIL_TO]):
     logging.error("Hiányzó SMTP vagy email konfiguráció! Ellenőrizd a környezeti változókat.")
     exit(1)
 
+# ======================================================
+# OBJEKTUMORIENTÁLT PROGRAMOZÁS
+# - Session objektum és User modellek
+
+# SessionLocal és User objektumok ORM-es használata
+# (db.query(User).all() objektumorientált lekérdezés)
+
+# FUNKCIONÁLIS PROGRAMOZÁS
+# - Elkülönített, újrafelhasználható függvények
+# ======================================================
 def get_yesterdays_movies():
     """Lekéri az előző nap feltöltött filmeket a backendből"""
     yesterday = datetime.utcnow() - timedelta(days=1)
@@ -101,7 +115,10 @@ def send_email():
 #schedule.every().day.at("00:00").do(send_email)
 #schedule.every(1).minutes.do(send_email)
 
-
+# ======================================================
+# PROCEDURÁLIS / IMPERATÍV PROGRAMOZÁS
+# - Ütemezés és folyamatos futtatás
+# ======================================================
 def run_scheduler():
     import schedule
     import time
@@ -111,6 +128,7 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
 
 
