@@ -167,5 +167,5 @@ def start_email_scheduler():
                 logger.exception("Failed to send scheduled email: %s", e)
             finally:
                 db.close()
-            time.sleep(10)  # minden 10 mp-ként
+            time.sleep(86400)  # minden 10 mp-ként
     threading.Thread(target=email_loop, daemon=True).start()
