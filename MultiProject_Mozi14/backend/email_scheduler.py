@@ -102,7 +102,7 @@ def send_email():
 
     try:
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 587, context=context) as server:
             server.login(SMTP_USER, SMTP_PASSWORD)
             logger.info("SMTP login sikeres")
             server.send_message(msg)
@@ -128,6 +128,7 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
 
 
