@@ -65,6 +65,7 @@ def create_movie(db: Session, movie: schemas.MovieCreate) -> models.Movie:
     db.add(obj)
     db.commit()
     db.refresh(obj)
+    """
     # Discord értesítés minden új filmnél
     try:
         from tasks import send_discord_message
@@ -74,8 +75,8 @@ def create_movie(db: Session, movie: schemas.MovieCreate) -> models.Movie:
     except Exception as e:
         print(f"Discord értesítés hiba: {e}")
 
-    return obj
-
+    
+"""
 
     
     # Új sor hozzáadásakor értesítés küldése
