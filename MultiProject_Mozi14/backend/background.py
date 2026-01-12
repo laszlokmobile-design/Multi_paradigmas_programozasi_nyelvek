@@ -39,7 +39,7 @@ EMAIL_TO = os.getenv("EMAIL_TO")  # can be comma separated
 # FUNKCIONÁLIS PROGRAMOZÁS
 # - Elkülönített, újrafelhasználható függvények
 # ======================================================
-
+"""
 #1️⃣ SMTP email küldés funkció
 def send_email(subject: str, body: str, to_emails: list[str] | None = None):
     if not (SMTP_HOST and SMTP_USER and SMTP_PASSWORD and EMAIL_FROM):
@@ -64,6 +64,7 @@ def send_email(subject: str, body: str, to_emails: list[str] | None = None):
         logger.info("Notification email sent.")
     except Exception as e:
         logger.exception("Failed to send email: %s", e)
+        """
 # 2️⃣ Új filmek lekérése
 def fetch_new_movies():
     from crud import create_movie
