@@ -31,7 +31,7 @@ class PasswordResetRequest(BaseModel):
 # PROCEDURÁLIS PROGRAMOZÁS
 # - Lépésről lépésre végrehajtott jelszó reset logika
 # ======================================================
-@router.post("/auth/password-reset/")  # app helyett router
+@router.post("/auth/password-reset/")
 def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == request.email).first()
     if not user:
@@ -41,23 +41,37 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
     user.password_reset_token = token
     db.commit()
 
+    # --- JAVÍTÁS ITT KEZDŐDIK ---
+    # 1. Beolvassuk a környezeti változót egy Python változóba
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:8501") # Fallback, ha üres
+
+    # 2. Összeállítjuk az üzenetet
     msg = EmailMessage()
     msg['Subject'] = "Jelszó visszaállítás"
-    msg['From'] = smtp_user
+    msg['From'] = smtp_user  # Most már létezik a változó!
     msg['To'] = user.email
 
-    frontend_url = os.getenv("FRONTEND_URL")  # .env-ből olvassa, nincs fallback localhost
-    #msg.set_content(f"Kattints ide a jelszó visszaállításához: {frontend_url}/reset-password?token={token}")
-    msg.set_content(f"Kattints ide a jelszó visszaállításához: {frontend_url}/reset_password?token={token}")
+    link = f"{frontend_url}/reset_password?token={token}"
+    msg.set_content(f"Kattints ide a jelszó visszaállításához: {link}")
 
-    # STARTTLS (587-es port)
-    with smtplib.SMTP(os.getenv("SMTP_HOST", "smtp.gmail.com"), int(os.getenv("SMTP_PORT", 587))) as server:
-        server.starttls()
-        server.login(os.getenv("SMTP_USER"), os.getenv("SMTP_PASSWORD"))
-        server.send_message(msg)
+    # 3. Küldés hibakezeléssel (fontos Renderen!)
+    try:
+        host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+        port = int(os.getenv("SMTP_PORT", 587))
+
+        with smtplib.SMTP(host, port, timeout=15) as server:
+            server.starttls()  # Titkosított csatorna megnyitása
+            server.login(smtp_user, smtp_password)
+            server.send_message(msg)
+    except Exception as e:
+        # Ha hiba van, látni fogod a Render logban a pontos okot
+        print(f"SMTP hiba történt: {e}")
+        raise HTTPException(status_code=500, detail="E-mail küldési hiba.")
 
     return {"detail": "Jelszó visszaállító email elküldve."}
-
+    
 class PasswordResetConfirm(BaseModel):
     token: str
     new_password: str
@@ -80,6 +94,7 @@ def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(
 
 
     return {"detail": "A jelszó sikeresen módosítva."}
+
 
 
 
