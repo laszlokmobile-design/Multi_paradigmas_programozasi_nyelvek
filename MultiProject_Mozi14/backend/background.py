@@ -1,4 +1,6 @@
+
 #backend/background.py
+"""
 import threading
 from time import sleep
 import schedule
@@ -19,7 +21,7 @@ from sqlalchemy.orm import Session
 from email_utils import send_email as send_email_util
 import time
 import functools
-"""
+
 # ======================================================
 # DEKLARATÍV PROGRAMOZÁS
 # - Konfigurációk és szabályok leírása
