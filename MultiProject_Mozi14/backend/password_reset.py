@@ -58,17 +58,21 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
 
     # 3. Küldés hibakezeléssel (fontos Renderen!)
     try:
-        host = os.getenv("SMTP_HOST", "smtp.gmail.com")
-        port = int(os.getenv("SMTP_PORT", 587))
+        # Fix adatok a hálózati hibák elkerülésére
+        host = "smtp.gmail.com"
+        port = 587 
 
-        with smtplib.SMTP(host, port, timeout=15) as server:
-            server.starttls()  # Titkosított csatorna megnyitása
+        # Sima SMTP-t használunk (587), nem SMTP_SSL-t (465)
+        with smtplib.SMTP(host, port, timeout=20) as server:
+            server.starttls()  # Titkosítás aktiválása
             server.login(smtp_user, smtp_password)
             server.send_message(msg)
+            print("✅ Email sikeresen elküldve!")
+            
     except Exception as e:
-        # Ha hiba van, látni fogod a Render logban a pontos okot
-        print(f"SMTP hiba történt: {e}")
-        raise HTTPException(status_code=500, detail="E-mail küldési hiba.")
+        # Ha itt is hiba van, a Log-ban látni fogjuk a pontos okot
+        print(f"❌ SMTP hiba: {e}")
+        raise HTTPException(status_code=500, detail="Email küldési hiba.")
 
     return {"detail": "Jelszó visszaállító email elküldve."}
     
@@ -94,6 +98,7 @@ def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(
 
 
     return {"detail": "A jelszó sikeresen módosítva."}
+
 
 
 
