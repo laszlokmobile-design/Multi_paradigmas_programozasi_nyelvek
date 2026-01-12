@@ -43,7 +43,7 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
 
     msg = EmailMessage()
     msg['Subject'] = "Jelszó visszaállítás"
-    msg['From'] = "smtp_user"
+    msg['From'] = smtp_user
     msg['To'] = user.email
 
     frontend_url = os.getenv("FRONTEND_URL")  # .env-ből olvassa, nincs fallback localhost
@@ -80,6 +80,7 @@ def password_reset_confirm(request: PasswordResetConfirm, db: Session = Depends(
 
 
     return {"detail": "A jelszó sikeresen módosítva."}
+
 
 
 
