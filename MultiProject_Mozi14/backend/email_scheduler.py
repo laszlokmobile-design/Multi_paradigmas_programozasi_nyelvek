@@ -100,15 +100,21 @@ def send_email():
     msg['To'] = ", ".join(get_all_user_emails())
     msg.set_content(body)
 
-    try:
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+try:
+        # Renderen a 465-ös port TILTOTT, ezért váltunk 587-re
+        host = "smtp.gmail.com"
+        port = 587
+
+        # SMTP_SSL helyett sima SMTP-t használunk
+        with smtplib.SMTP(host, port, timeout=20) as server:
+            server.starttls()  # Ez aktiválja a titkosítást a 587-es porton
             server.login(SMTP_USER, SMTP_PASSWORD)
-            logger.info("SMTP login sikeres")
+            logger.info("SMTP login sikeres (STARTTLS 587)")
             server.send_message(msg)
-            logger.info("Email elküldve!")
+            logger.info("Email sikeresen elküldve!")
+            
     except Exception as e:
-        logger.error(f"Hiba az email küldésekor: {e}")
+        logger.error(f"Email sending failed: {e}") # Ez fog megjelenni a logban hiba esetén
 
 
 # Ütemezés: minden nap éjfélkor
@@ -128,6 +134,7 @@ def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
 
 
