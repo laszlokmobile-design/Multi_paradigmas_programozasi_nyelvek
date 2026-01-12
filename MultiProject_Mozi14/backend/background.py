@@ -19,7 +19,7 @@ from sqlalchemy.orm import Session
 from email_utils import send_email as send_email_util
 import time
 import functools
-
+"""
 # ======================================================
 # DEKLARATÍV PROGRAMOZÁS
 # - Konfigurációk és szabályok leírása
@@ -39,7 +39,7 @@ EMAIL_TO = os.getenv("EMAIL_TO")  # can be comma separated
 # FUNKCIONÁLIS PROGRAMOZÁS
 # - Elkülönített, újrafelhasználható függvények
 # ======================================================
-"""
+
 #1️⃣ SMTP email küldés funkció
 def send_email(subject: str, body: str, to_emails: list[str] | None = None):
     if not (SMTP_HOST and SMTP_USER and SMTP_PASSWORD and EMAIL_FROM):
@@ -64,7 +64,7 @@ def send_email(subject: str, body: str, to_emails: list[str] | None = None):
         logger.info("Notification email sent.")
     except Exception as e:
         logger.exception("Failed to send email: %s", e)
-        """
+        
 # 2️⃣ Új filmek lekérése
 def fetch_new_movies():
     from crud import create_movie
@@ -169,4 +169,109 @@ def start_email_scheduler():
             finally:
                 db.close()
             time.sleep(86400)  # minden 10 mp-ként
+    threading.Thread(target=email_loop, daemon=True).start()"""
+import threading
+from time import sleep
+import schedule
+import requests
+import os
+import time
+from database import SessionLocal
+from schemas import MovieCreate
+from logger import logger
+from dotenv import load_dotenv
+from models import Movie, User
+# Csak a javított segédfüggvényeket importáljuk
+from email_utils import send_email as send_email_util, build_new_movie_email
+
+load_dotenv()
+
+SCRAPE_URL = os.getenv("SCRAPE_URL", "https://dummyjson.com/products?limit=3")
+EMAIL_ON_NEW = os.getenv("EMAIL_ON_NEW", "false").lower() == "true"
+
+# 2️⃣ Új filmek lekérése
+def fetch_new_movies():
+    from crud import create_movie
+    logger.info("Background: fetching new movies")
+    try:
+        r = requests.get(SCRAPE_URL, timeout=10)
+        r.raise_for_status()
+        data = r.json().get("products", [])
+    except Exception as e:
+        logger.exception("Failed to fetch remote data: %s", e)
+        return
+
+    db = SessionLocal()
+    created = []
+    try:
+        for d in data:
+            movie = MovieCreate(
+                title=d.get("title", "untitled")[:300],
+                year=2024,
+                genre="Drama",
+                rating=float(d.get("rating") or 7.0),
+                description=d.get("description") or "",
+                poster_url=d.get("thumbnail")
+            )
+            obj = create_movie(db, movie)
+            created.append(obj)
+        
+        if created and EMAIL_ON_NEW:
+            users = db.query(User).all()
+            to_emails = [u.email for u in users if u.email]
+            if to_emails:
+                body = f"Új filmek érkeztek ({len(created)} db):\n" + "\n".join([f"- {m.title}" for m in created])
+                # JAVÍTÁS: Itt is a send_email_util-t hívjuk!
+                send_email_util("Mozi: New movies added", body, to_emails)
+        logger.info("Background: saved %d items", len(created))
+    finally:
+        db.close()
+
+# 3️⃣ Ütemezett futtatás
+def scheduler_loop():
+    schedule.every().day.at("03:00").do(fetch_new_movies)
+    while True:
+        schedule.run_pending()
+        sleep(10)
+
+def start_scheduler_in_thread():
+    t = threading.Thread(target=scheduler_loop, daemon=True)
+    t.start()
+    logger.info("Background scheduler started in thread")
+
+# 4️⃣ Új film értesítés
+def notify_new_movie(movie: Movie):
+    db = SessionLocal()
+    try:
+        users = db.query(User).all()
+        emails = [user.email for user in users if user.email]
+        if emails:
+            subject = f"Új film: {movie.title}"
+            body = build_new_movie_email(movie.title, movie.year, movie.description)
+            # JAVÍTÁS: Itt is a send_email_util-t hívjuk!
+            send_email_util(subject, body, emails)
+    finally:
+        db.close()
+
+# 5️⃣ Email scheduler
+def start_email_scheduler():
+    def email_loop():
+        while True:
+            # Várakozás a ciklus elején, hogy ne spammeljen induláskor
+            time.sleep(86400) 
+            db = SessionLocal()
+            try:
+                users = db.query(User).all()
+                to_emails = [u.email for u in users if u.email]
+                if to_emails:
+                    send_email_util(
+                        subject="Előző napi filmfeltöltések",
+                        body="Itt az összefoglaló a tegnapi filmekről...",
+                        to_emails=to_emails
+                    )
+            except Exception as e:
+                logger.exception("Failed to send scheduled email: %s", e)
+            finally:
+                db.close()
+    
     threading.Thread(target=email_loop, daemon=True).start()
