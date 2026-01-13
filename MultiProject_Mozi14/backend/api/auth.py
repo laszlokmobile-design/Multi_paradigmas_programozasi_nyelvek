@@ -36,7 +36,7 @@ def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Username or email already registered")
     user = crud.create_user(db, user_in)
     return user
-"""
+
 @router.post("/password-reset/")
 def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db)):
     email = request.email
@@ -60,5 +60,6 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
 
     return {"detail": "Password reset email sent"}
 
-"""
+
+
 
