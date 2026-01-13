@@ -36,7 +36,6 @@ def register(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Username or email already registered")
     user = crud.create_user(db, user_in)
     return user
-
 """
 @router.post("/password-reset/")
 def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db)):
@@ -60,33 +59,6 @@ def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db))
 
 
     return {"detail": "Password reset email sent"}
+
 """
-
-@router.post("/password-reset/")
-def password_reset(request: PasswordResetRequest, db: Session = Depends(get_db)):
-    email = request.email
-    user = crud.get_user_by_email(db, email)
-    
-    if not user:
-        # Biztonsági tipp: Élesben érdemesebb lehet 200-at visszaadni, 
-        # hogy ne lehessen kitalálni, ki van regisztrálva.
-        raise HTTPException(status_code=404, detail="User not found")
-
-    # Token létrehozása (érdemes ide egy rövidebb lejárati időt állítani, pl. 15 perc)
-    token = create_access_token({"sub": user.username})
-
-    # A te konkrét Streamlit URL-ed használata
-    frontend_url = "https://multiparadigmasprogramozasinyelvek-cjjaqkrmg6z9t9jkybdtam.streamlit.app"
-    
-    # A link generálása
-    token_link = f"{frontend_url}/?token={quote_plus(token)}"
-
-    # Email küldése a helyes paraméter sorrenddel
-    send_email(
-        "Jelszó visszaállítás",
-        f"Kattints az alábbi linkre a jelszavad visszaállításához (a link 15 percig érvényes): {token_link}",
-        user.email
-    )
-
-    return {"detail": "Password reset email sent"}
 
